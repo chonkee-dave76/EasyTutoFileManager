@@ -58,7 +58,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }else{
-                    //open thte file
+                    //open the file
                     try {
                         Intent intent = new Intent();
                         intent.setAction(android.content.Intent.ACTION_VIEW);
@@ -121,12 +121,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView textView;
+        TextView emojiView;
         ImageView imageView;
 
         public ViewHolder(View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.file_name_text_view);
             imageView = itemView.findViewById(R.id.icon_view);
+            emojiView = itemView.findViewById(R.id.emoji_view);
         }
     }
 }

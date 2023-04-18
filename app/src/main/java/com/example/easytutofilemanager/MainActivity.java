@@ -34,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
                     String path = Environment.getExternalStorageDirectory().getPath();
                     intent.putExtra("path",path);
                     startActivity(intent);
+
+                    File homeFile = new File(Environment.getExternalStorageDirectory(),"GetOrganised");
+                    if(!homeFile.exists()){
+                        homeFile.mkdir();
+                    }
+
+
                 }else{
                     //permission not allowed
                     requestPermission();
