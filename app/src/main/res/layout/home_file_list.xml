@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FileListActivity">
+    tools:context=".HomeListActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -13,6 +13,11 @@
         android:id="@+id/nofiles_textview"
         android:visibility="invisible"
         android:text="NO FILES FOUND"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

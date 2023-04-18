@@ -30,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkPermission()){
                     //permission allowed
-                    Intent intent = new Intent(MainActivity.this, FileListActivity.class);
-                    String path = Environment.getExternalStorageDirectory().getPath();
+                    Intent intent = new Intent(MainActivity.this, HomeListActivity.class);
+                    String path = Environment.getExternalStorageDirectory().getPath() + "/GetOrganised/";
                     intent.putExtra("path",path);
                     startActivity(intent);
 

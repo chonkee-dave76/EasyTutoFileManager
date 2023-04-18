@@ -3,7 +3,6 @@ package com.example.easytutofilemanager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
@@ -52,7 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             @Override
             public void onClick(View v) {
                 if(selectedFile.isDirectory()){
-                    Intent intent = new Intent(context, FileListActivity.class);
+                    Intent intent = new Intent(context, HomeListActivity.class);
                     String path = selectedFile.getAbsolutePath();
                     intent.putExtra("path",path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
