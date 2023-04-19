@@ -10,9 +10,9 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
 
 import java.io.File;
 
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MaterialButton storageBtn = findViewById(R.id.storage_btn);
+        Button storageBtn = findViewById(R.id.storage_btn);
 
         storageBtn.setOnClickListener(new View.OnClickListener() {
             @Override

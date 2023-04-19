@@ -7,7 +7,7 @@
     android:background="#C4F4E3"
     tools:context=".MainActivity">
 
-    <com.google.android.material.button.MaterialButton
+    <Button
         android:id="@+id/storage_btn"
         android:layout_width="230dp"
         android:layout_height="110dp"
