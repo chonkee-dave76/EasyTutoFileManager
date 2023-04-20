@@ -52,10 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkPermission(){
         int result = ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        if(result == PackageManager.PERMISSION_GRANTED){
-            return true;
-        }else
-            return false;
+        return result == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestPermission(){

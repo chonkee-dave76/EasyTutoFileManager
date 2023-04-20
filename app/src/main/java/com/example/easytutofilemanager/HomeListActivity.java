@@ -19,9 +19,18 @@ public class HomeListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_file_list);
 
+        Button settingsButton = findViewById(R.id.settingButton);
         Button createNewFolder = findViewById(R.id.createNewFolder);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         TextView noFilesText = findViewById(R.id.nofiles_textview);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toSettings = new Intent(HomeListActivity.this, Settings.class);
+                startActivity(toSettings);
+            }
+        });
 
         createNewFolder.setOnClickListener(new View.OnClickListener() {
             @Override
