@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 if(checkPermission()){
                     //permission allowed
                     Intent intent = new Intent(MainActivity.this, HomeListActivity.class);
-                    String path = Environment.getExternalStorageDirectory().getPath() + "/GetOrganised/";
+                    String path = Environment.getExternalStorageDirectory().getPath();
                     intent.putExtra("path",path);
                     startActivity(intent);
 
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
                     if(!homeFile.exists()){
                         homeFile.mkdir();
                     }
-
 
                 }else{
                     //permission not allowed
