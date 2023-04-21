@@ -2,6 +2,7 @@ package com.example.easytutofilemanager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,7 +21,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     Context context;
     File[] filesAndFolders;
-
     public MyAdapter(Context context, File[] filesAndFolders){
         this.context = context;
         this.filesAndFolders = filesAndFolders;
@@ -41,9 +41,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         holder.textView.setText(selectedFile.getName());
 
         if(selectedFile.isDirectory()){
+            int folderColour = SharedPref.loadFolderColourFromPref(context.getApplicationContext());
             holder.imageView.setImageResource(R.drawable.ic_baseline_folder_24);
+            holder.imageView.setColorFilter(folderColour);
         }else{
+            int fileColour = SharedPref.loadFileColourFromPref(context.getApplicationContext());
             holder.imageView.setImageResource(R.drawable.ic_baseline_insert_drive_file_24);
+            holder.imageView.setColorFilter(fileColour);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

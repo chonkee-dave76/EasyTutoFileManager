@@ -2,26 +2,28 @@ package com.example.easytutofilemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.google.android.material.bottomappbar.BottomAppBarTopEdgeTreatment;
-
 import top.defaults.colorpicker.ColorPickerPopup;
 
 public class Settings extends AppCompatActivity {
 
-    int defaultColour = 0;
+    static int folderColour;
+    static  int fileColour;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
         Button confirmButton = findViewById(R.id.confirmButton);
-        Button colourPicker = findViewById(R.id.folderColour);
-        View colourPreview = findViewById(R.id.previewColour);
+        Button folderColourPicker = findViewById(R.id.folderColour);
+        Button fileColourPicker = findViewById(R.id.fileColour);
+        View folderColourPreview = findViewById(R.id.previewFolderColour);
+        View fileColourPreview = findViewById(R.id.previewFileColour);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,7 +32,7 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        colourPicker.setOnClickListener(new View.OnClickListener() {
+        folderColourPicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new ColorPickerPopup.Builder(Settings.this)
@@ -45,13 +47,37 @@ public class Settings extends AppCompatActivity {
                         .show(view, new ColorPickerPopup.ColorPickerObserver() {
                             @Override
                             public void onColorPicked(int color) {
-                                defaultColour = color;
-                                colourPreview.setBackgroundColor(defaultColour);
+                                folderColour = color;
+                                SharedPref.saveFolderColourInPref(getApplicationContext(), folderColour);
+                                folderColourPreview.setBackgroundColor(folderColour);
 
                             }
                         });
             }
         });
 
+        fileColourPicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new ColorPickerPopup.Builder(Settings.this)
+                        .initialColor(Color.RED)
+                        .enableAlpha(true)
+                        .enableBrightness(true)
+                        .okTitle("Confirm")
+                        .cancelTitle("Cancel")
+                        .showIndicator(true)
+                        .showValue(true)
+                        .build()
+                        .show(view, new ColorPickerPopup.ColorPickerObserver() {
+                            @Override
+                            public void onColorPicked(int color) {
+                                fileColour = color;
+                                SharedPref.saveFileColourInPref(getApplicationContext(), fileColour);
+                                fileColourPreview.setBackgroundColor(fileColour);
+
+                            }
+                        });
+            }
+        });
     }
 }

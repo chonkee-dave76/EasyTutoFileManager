@@ -48,8 +48,6 @@ public class NewFolderCreation extends AppCompatActivity {
                 finish();
             }
         });
-
-
     }
 
     private void makeFolder(String folderName) {

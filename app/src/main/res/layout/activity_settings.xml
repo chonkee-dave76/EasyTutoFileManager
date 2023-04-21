@@ -13,11 +13,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="#78A8DD"
-        android:text="Colour"
+        android:text=" Folder Colour "
         android:textColor="@color/white" />
 
     <View
-        android:id="@+id/previewColour"
+        android:id="@+id/previewFolderColour"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_below="@id/folderColour"
@@ -26,14 +26,34 @@
         android:layout_marginTop="40dp" />
 
     <Button
+        android:id="@+id/fileColour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="#78A8DD"
+        android:text=" File Colour "
+        android:layout_below="@id/previewFolderColour"
+        android:textColor="@color/white" />
+
+    <View
+        android:id="@+id/previewFileColour"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/fileColour"
+        android:layout_centerHorizontal="true"
+        android:background="#b8b8b8"
+        android:layout_marginTop="40dp" />
+
+    <Button
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/previewColour"
-        android:text="Confirm"
-        android:background="#78A8DD"
+        android:layout_below="@id/previewFileColour"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/white"/>
+        android:layout_marginTop="100dp"
+        android:background="#78A8DD"
+        android:text="Confirm"
+        android:textColor="@color/white" />
 
 </RelativeLayout>
