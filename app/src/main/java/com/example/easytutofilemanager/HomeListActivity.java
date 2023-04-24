@@ -33,7 +33,7 @@ public class HomeListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent toSettings = new Intent(HomeListActivity.this, Settings.class);
                 startActivity(toSettings);
-                recreate();
+
             }
         });
 

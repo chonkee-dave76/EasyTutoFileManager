@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.jakewharton.processphoenix.ProcessPhoenix;
+
 import top.defaults.colorpicker.ColorPickerPopup;
 
 public class Settings extends AppCompatActivity {
@@ -28,7 +30,8 @@ public class Settings extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
+                ProcessPhoenix.triggerRebirth(getApplicationContext(), nextIntent);
             }
         });
 

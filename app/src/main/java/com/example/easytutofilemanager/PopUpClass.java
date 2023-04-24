@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.jakewharton.processphoenix.ProcessPhoenix;
+
 import java.io.File;
 
 public class PopUpClass {
@@ -35,6 +37,8 @@ public class PopUpClass {
                 if (success) {
                     Toast.makeText(popupView.getContext(), "SUCCESS",Toast.LENGTH_SHORT).show();
                 }
+                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
+                ProcessPhoenix.triggerRebirth(popupView.getContext(), nextIntent);
                 popupWindow.dismiss();
             }
         });

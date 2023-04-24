@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.graphics.Color;
+
+import com.jakewharton.processphoenix.ProcessPhoenix;
+
 import top.defaults.colorpicker.ColorPickerPopup;
 
 import java.io.File;
@@ -53,7 +56,8 @@ public class NewFolderCreation extends AppCompatActivity {
 
                 FolderName = folderName.getText().toString().trim();
                 makeFolder(FolderName);
-                finish();
+                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
+                ProcessPhoenix.triggerRebirth(getApplicationContext(), nextIntent);
             }
         });
     }
