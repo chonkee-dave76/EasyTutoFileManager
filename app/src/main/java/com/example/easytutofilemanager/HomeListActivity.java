@@ -1,6 +1,7 @@
 package com.example.easytutofilemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,7 +33,7 @@ public class HomeListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent toSettings = new Intent(HomeListActivity.this, Settings.class);
                 startActivity(toSettings);
-                finish();
+                recreate();
             }
         });
 
@@ -41,7 +42,6 @@ public class HomeListActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent toFolderCreate = new Intent(HomeListActivity.this, NewFolderCreation.class);
                 startActivity(toFolderCreate);
-                finish();
             }
         });
 

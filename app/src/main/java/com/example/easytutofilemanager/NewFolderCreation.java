@@ -23,7 +23,7 @@ public class NewFolderCreation extends AppCompatActivity {
     Button createButton;
     Button colourPicker;
     EditText folderName;
-
+    public static String selectedFolderPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +31,19 @@ public class NewFolderCreation extends AppCompatActivity {
         backButton = findViewById(R.id.backButton);
         createButton = findViewById(R.id.createButton);
         folderName = findViewById(R.id.folderName);
+        Button pathButton = findViewById(R.id.pathButton);
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        pathButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), selectedFolderPath,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -51,8 +59,7 @@ public class NewFolderCreation extends AppCompatActivity {
     }
 
     private void makeFolder(String folderName) {
-        String path = Environment.getExternalStorageDirectory().getPath() + "/GetOrganised/";
-        File newFile = new File(path, folderName);
+        File newFile = new File(selectedFolderPath, folderName);
         if (!newFile.exists()) {
             newFile.mkdir();
         } else {

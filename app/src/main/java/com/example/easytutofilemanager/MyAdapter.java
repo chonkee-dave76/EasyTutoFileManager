@@ -4,14 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.PopupWindow;
 
 import java.io.File;
 
@@ -21,6 +25,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     Context context;
     File[] filesAndFolders;
+    public static String newName;
     public MyAdapter(Context context, File[] filesAndFolders){
         this.context = context;
         this.filesAndFolders = filesAndFolders;
@@ -56,6 +61,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 if(selectedFile.isDirectory()){
                     Intent intent = new Intent(context, HomeListActivity.class);
                     String path = selectedFile.getAbsolutePath();
+                    NewFolderCreation.selectedFolderPath = selectedFile.getAbsolutePath();
                     intent.putExtra("path",path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -99,8 +105,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
                         }
                         if(item.getTitle().equals("RENAME")){
+                            PopUpClass renamePopup = new PopUpClass();
+                            renamePopup.showRenamePopup(v);
+                            File renamedToFile = new File(selectedFile.getAbsolutePath(), newName);
+                            selectedFile.renameTo(renamedToFile);
                             Toast.makeText(context.getApplicationContext(),"RENAME ",Toast.LENGTH_SHORT).show();
-
                         }
                         return true;
                     }

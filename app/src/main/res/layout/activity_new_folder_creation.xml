@@ -31,5 +31,14 @@
         android:text="create"
         android:textColor="@color/white" />
 
+    <Button
+        android:id="@+id/pathButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="path"
+        android:layout_below="@+id/createButton"
+        android:layout_marginTop="25dp"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
