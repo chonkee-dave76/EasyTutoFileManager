@@ -7,8 +7,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
-import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import top.defaults.colorpicker.ColorPickerPopup;
 
@@ -21,17 +21,33 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+        ImageButton refreshButton = findViewById(R.id.refreshButton);
+        Button backButton = findViewById(R.id.backButton);
         Button confirmButton = findViewById(R.id.confirmButton);
         Button folderColourPicker = findViewById(R.id.folderColour);
         Button fileColourPicker = findViewById(R.id.fileColour);
         View folderColourPreview = findViewById(R.id.previewFolderColour);
         View fileColourPreview = findViewById(R.id.previewFileColour);
 
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
-                ProcessPhoenix.triggerRebirth(getApplicationContext(), nextIntent);
+                finish();
             }
         });
 

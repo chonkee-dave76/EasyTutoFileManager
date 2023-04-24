@@ -21,8 +21,6 @@ import java.io.File;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jakewharton.processphoenix.ProcessPhoenix;
-
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     public static File adapterRenameFile;
@@ -103,8 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                             boolean deleted = selectedFile.delete();
                             if(deleted) {
                                 Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
-                                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
-                                ProcessPhoenix.triggerRebirth(context.getApplicationContext(), nextIntent);
+                                v.setVisibility(View.GONE);
                             }
                         }
                         if(item.getTitle().equals("SHOW")){

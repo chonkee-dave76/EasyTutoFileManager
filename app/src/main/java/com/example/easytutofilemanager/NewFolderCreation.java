@@ -12,11 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.graphics.Color;
 
-import com.jakewharton.processphoenix.ProcessPhoenix;
-
 import top.defaults.colorpicker.ColorPickerPopup;
 
 import java.io.File;
+import java.util.Objects;
 
 public class NewFolderCreation extends AppCompatActivity {
 
@@ -24,9 +23,8 @@ public class NewFolderCreation extends AppCompatActivity {
     String FolderName;
     Button backButton;
     Button createButton;
-    Button colourPicker;
     EditText folderName;
-    public static String selectedFolderPath;
+    public static String selectedFolderPath = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,19 +54,24 @@ public class NewFolderCreation extends AppCompatActivity {
 
                 FolderName = folderName.getText().toString().trim();
                 makeFolder(FolderName);
-                Intent nextIntent = new Intent(String.valueOf(HomeListActivity.class));
-                ProcessPhoenix.triggerRebirth(getApplicationContext(), nextIntent);
+                finish();
             }
         });
     }
 
     private void makeFolder(String folderName) {
-        File newFile = new File(selectedFolderPath, folderName);
+        File newFile;
+        if (selectedFolderPath.equals("")) {
+            newFile = new File(Environment.getExternalStorageDirectory() + "/GetOrganised/", folderName);
+        } else {
+            newFile = new File(selectedFolderPath, folderName);
+        }
         if (!newFile.exists()) {
             newFile.mkdir();
         } else {
             Toast.makeText(getApplicationContext(), "Folder already exists", Toast.LENGTH_SHORT).show();
         }
+        NewFolderCreation.selectedFolderPath = "";
     }
 }
 
