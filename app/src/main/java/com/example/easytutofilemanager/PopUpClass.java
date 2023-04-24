@@ -1,5 +1,7 @@
 package com.example.easytutofilemanager;
 
+import android.content.Intent;
+import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -8,6 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import java.io.File;
 
 public class PopUpClass {
     public void showRenamePopup(final View view) {
@@ -25,7 +30,11 @@ public class PopUpClass {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MyAdapter.newName = renameEditText.toString();
+                File renameToFile = new File(MyAdapter.adapterRenameFile.getParent(), renameEditText.getText().toString());
+                boolean success = (MyAdapter.adapterRenameFile).renameTo(renameToFile);
+                if (success) {
+                    Toast.makeText(popupView.getContext(), "SUCCESS",Toast.LENGTH_SHORT).show();
+                }
                 popupWindow.dismiss();
             }
         });

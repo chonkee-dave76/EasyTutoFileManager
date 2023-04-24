@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
+    public static File adapterRenameFile;
     Context context;
     File[] filesAndFolders;
     public static String newName;
@@ -61,6 +62,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 if(selectedFile.isDirectory()){
                     Intent intent = new Intent(context, HomeListActivity.class);
                     String path = selectedFile.getAbsolutePath();
+                    Toast.makeText(context, path, Toast.LENGTH_SHORT).show();
                     NewFolderCreation.selectedFolderPath = selectedFile.getAbsolutePath();
                     intent.putExtra("path",path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -85,31 +87,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             @Override
             public boolean onLongClick(View v) {
 
+                Toast.makeText(v.getContext(), selectedFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
+
                 PopupMenu popupMenu = new PopupMenu(context,v);
                 popupMenu.getMenu().add("DELETE");
-                popupMenu.getMenu().add("MOVE");
+                popupMenu.getMenu().add("SHOW");
                 popupMenu.getMenu().add("RENAME");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getTitle().equals("DELETE")){
-                            boolean deleted = selectedFile.delete();
-                            if(deleted){
-                                Toast.makeText(context.getApplicationContext(),"DELETED ",Toast.LENGTH_SHORT).show();
-                                v.setVisibility(View.GONE);
-                            }
+                            Toast.makeText(context.getApplicationContext(), selectedFile.getAbsolutePath(),Toast.LENGTH_SHORT).show();
                         }
-                        if(item.getTitle().equals("MOVE")){
-                            Toast.makeText(context.getApplicationContext(),"MOVED ",Toast.LENGTH_SHORT).show();
+                        if(item.getTitle().equals("SHOW")){
+                            Toast.makeText(context.getApplicationContext(),filesAndFolders.toString(),Toast.LENGTH_LONG).show();
 
                         }
                         if(item.getTitle().equals("RENAME")){
                             PopUpClass renamePopup = new PopUpClass();
+                            adapterRenameFile = selectedFile;
                             renamePopup.showRenamePopup(v);
-                            File renamedToFile = new File(selectedFile.getAbsolutePath(), newName);
-                            selectedFile.renameTo(renamedToFile);
-                            Toast.makeText(context.getApplicationContext(),"RENAME ",Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }
