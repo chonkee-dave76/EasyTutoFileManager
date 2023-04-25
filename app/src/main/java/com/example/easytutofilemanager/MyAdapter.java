@@ -62,8 +62,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                 if(selectedFile.isDirectory()){
                     Intent intent = new Intent(context, HomeListActivity.class);
                     String path = selectedFile.getAbsolutePath();
+                    pathList.paths.add(path);
                     Toast.makeText(context, path, Toast.LENGTH_SHORT).show();
-                    NewFolderCreation.selectedFolderPath = selectedFile.getAbsolutePath();
                     intent.putExtra("path",path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -87,8 +87,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             @Override
             public boolean onLongClick(View v) {
 
-                Toast.makeText(v.getContext(), selectedFile.getAbsolutePath(), Toast.LENGTH_SHORT).show();
-
                 PopupMenu popupMenu = new PopupMenu(context,v);
                 popupMenu.getMenu().add("DELETE");
                 popupMenu.getMenu().add("SHOW");
@@ -98,10 +96,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getTitle().equals("DELETE")){
-                            boolean deleted = selectedFile.delete();
-                            if(deleted) {
-                                Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
-                                v.setVisibility(View.GONE);
+                            boolean deleted = false;
+                            if (selectedFile.isDirectory())
+                            {
+                                String[] children = selectedFile.list();
+                                for (int i = 0; i < children.length; i++)
+                                {
+                                    new File(selectedFile, children[i]).delete();
+                                }
+                                deleted = selectedFile.delete();
+                            }
+                            {
+                                if (deleted) {
+                                    v.setVisibility(View.GONE);
+                                    Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
                         if(item.getTitle().equals("SHOW")){

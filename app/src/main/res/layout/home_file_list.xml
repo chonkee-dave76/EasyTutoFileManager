@@ -22,10 +22,10 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="15dp"
         android:background="@drawable/new_folder_button"
         android:text="NEW"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/settingButton"
@@ -40,20 +40,20 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <ImageButton
         android:id="@+id/refreshButton"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:layout_above="@id/createNewFolder"
+        android:layout_alignBottom="@id/createNewFolder"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginEnd="125dp"
         android:scaleType="fitCenter"
+        android:background="@drawable/refresh_button"
         android:src="@android:drawable/ic_popup_sync" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
 </RelativeLayout>

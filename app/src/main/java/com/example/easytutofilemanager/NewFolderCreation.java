@@ -19,12 +19,11 @@ import java.util.Objects;
 
 public class NewFolderCreation extends AppCompatActivity {
 
-
+    public static String path = pathList.paths.get(pathList.paths.size()-1);
     String FolderName;
     Button backButton;
     Button createButton;
     EditText folderName;
-    public static String selectedFolderPath = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,15 +43,15 @@ public class NewFolderCreation extends AppCompatActivity {
         pathButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), selectedFolderPath,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), path,Toast.LENGTH_SHORT).show();
             }
         });
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 FolderName = folderName.getText().toString().trim();
+                Toast.makeText(getApplicationContext(), path,Toast.LENGTH_SHORT).show();
                 makeFolder(FolderName);
                 finish();
             }
@@ -60,18 +59,11 @@ public class NewFolderCreation extends AppCompatActivity {
     }
 
     private void makeFolder(String folderName) {
-        File newFile;
-        if (selectedFolderPath.equals("")) {
-            newFile = new File(Environment.getExternalStorageDirectory() + "/GetOrganised/", folderName);
-        } else {
-            newFile = new File(selectedFolderPath, folderName);
-        }
+        File newFile = new File(path);
         if (!newFile.exists()) {
             newFile.mkdir();
         } else {
-            Toast.makeText(getApplicationContext(), "Folder already exists", Toast.LENGTH_SHORT).show();
         }
-        NewFolderCreation.selectedFolderPath = "";
     }
 }
 

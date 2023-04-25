@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     //permission allowed
                     Intent intent = new Intent(MainActivity.this, HomeListActivity.class);
                     String path = Environment.getExternalStorageDirectory().getPath() + "/GetOrganised/";
+                    pathList.paths.add(path);
                     intent.putExtra("path",path);
                     startActivity(intent);
 

@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +25,19 @@ public class HomeListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_file_list);
 
+        ImageButton refreshButton = findViewById(R.id.refreshButton);
         Button settingsButton = findViewById(R.id.settingButton);
         Button createNewFolder = findViewById(R.id.createNewFolder);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         TextView noFilesText = findViewById(R.id.nofiles_textview);
+
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,5 +70,11 @@ public class HomeListActivity extends AppCompatActivity {
         recyclerView.setAdapter(new MyAdapter(getApplicationContext(),filesAndFolders));
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        pathList.paths.remove(pathList.paths.size()-1);
+        super.onBackPressed();
     }
 }
