@@ -5,5 +5,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class pathList {
-    public static List<String> paths = new ArrayList<String>();
+    public static List<String> paths = new ArrayList<>();
 }

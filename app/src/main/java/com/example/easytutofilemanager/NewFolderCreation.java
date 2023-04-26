@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class NewFolderCreation extends AppCompatActivity {
 
-    public static String path = pathList.paths.get(pathList.paths.size()-1);
+    String path = pathList.paths.get((pathList.paths.size()) -1);
     String FolderName;
     Button backButton;
     Button createButton;
@@ -51,7 +51,6 @@ public class NewFolderCreation extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FolderName = folderName.getText().toString().trim();
-                Toast.makeText(getApplicationContext(), path,Toast.LENGTH_SHORT).show();
                 makeFolder(FolderName);
                 finish();
             }
@@ -59,10 +58,12 @@ public class NewFolderCreation extends AppCompatActivity {
     }
 
     private void makeFolder(String folderName) {
-        File newFile = new File(path);
+        File newFile = new File(path, folderName);
         if (!newFile.exists()) {
             newFile.mkdir();
-        } else {
+        }
+        if (newFile.exists()) {
+            Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
         }
     }
 }

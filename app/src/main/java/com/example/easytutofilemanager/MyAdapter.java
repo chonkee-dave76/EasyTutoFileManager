@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.os.FileUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -63,7 +64,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     Intent intent = new Intent(context, HomeListActivity.class);
                     String path = selectedFile.getAbsolutePath();
                     pathList.paths.add(path);
-                    Toast.makeText(context, path, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, path + " " + pathList.paths.size(), Toast.LENGTH_SHORT).show();
                     intent.putExtra("path",path);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -98,14 +99,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                         if(item.getTitle().equals("DELETE")){
                             boolean deleted = false;
                             if (selectedFile.isDirectory())
-                            {
-                                String[] children = selectedFile.list();
-                                for (int i = 0; i < children.length; i++)
-                                {
-                                    new File(selectedFile, children[i]).delete();
-                                }
-                                deleted = selectedFile.delete();
-                            }
+                                FileUtils.deleteDirectory();
                             {
                                 if (deleted) {
                                     v.setVisibility(View.GONE);
