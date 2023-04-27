@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.Set;
 
 public class HomeListActivity extends AppCompatActivity {
 
@@ -26,10 +27,19 @@ public class HomeListActivity extends AppCompatActivity {
         setContentView(R.layout.home_file_list);
 
         ImageButton refreshButton = findViewById(R.id.refreshButton);
+        Button selectPhotoButton = findViewById(R.id.addPhotoButton);
         Button settingsButton = findViewById(R.id.settingButton);
         Button createNewFolder = findViewById(R.id.createNewFolder);
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         TextView noFilesText = findViewById(R.id.nofiles_textview);
+
+        selectPhotoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toAddPhoto = new Intent(HomeListActivity.this, addPhoto.class);
+                startActivity(toAddPhoto);
+            }
+        });
 
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override

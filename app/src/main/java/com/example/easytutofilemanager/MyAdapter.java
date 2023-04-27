@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
-import android.os.FileUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,8 +18,11 @@ import android.widget.Toast;
 import android.widget.PopupWindow;
 
 import java.io.File;
+import java.io.IOException;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.apache.commons.io.FileUtils;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
@@ -97,11 +99,14 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if(item.getTitle().equals("DELETE")){
-                            boolean deleted = false;
                             if (selectedFile.isDirectory())
-                                FileUtils.deleteDirectory();
                             {
-                                if (deleted) {
+                                try {
+                                    FileUtils.deleteDirectory(selectedFile);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                if (!selectedFile.exists()) {
                                     v.setVisibility(View.GONE);
                                     Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
                                 }
