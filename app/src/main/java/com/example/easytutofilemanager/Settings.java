@@ -21,21 +21,12 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        ImageButton refreshButton = findViewById(R.id.refreshButton);
         Button backButton = findViewById(R.id.backButton);
         Button confirmButton = findViewById(R.id.confirmButton);
         Button folderColourPicker = findViewById(R.id.folderColour);
         Button fileColourPicker = findViewById(R.id.fileColour);
         View folderColourPreview = findViewById(R.id.previewFolderColour);
         View fileColourPreview = findViewById(R.id.previewFileColour);
-
-        refreshButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(getIntent());
-            }
-        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,9 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity
-            android:name=".addPhoto"
-            android:exported="false" />
+        <activity android:name=".addPhoto" />
         <activity android:name=".Settings" />
         <activity android:name=".NewFolderCreation" />
         <activity android:name=".HomeListActivity" />
