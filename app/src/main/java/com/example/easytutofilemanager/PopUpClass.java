@@ -1,7 +1,5 @@
 package com.example.easytutofilemanager;
 
-import android.content.Intent;
-import android.os.Environment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,8 +29,8 @@ public class PopUpClass {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File renameToFile = new File(MyAdapter.adapterRenameFile.getParent(), renameEditText.getText().toString());
-                boolean success = (MyAdapter.adapterRenameFile).renameTo(renameToFile);
+                File renameToFile = new File(HomeListRecyclerAdapter.adapterRenameFile.getParent(), renameEditText.getText().toString());
+                boolean success = (HomeListRecyclerAdapter.adapterRenameFile).renameTo(renameToFile);
                 if (success) {
                     Toast.makeText(popupView.getContext(), "SUCCESS",Toast.LENGTH_SHORT).show();
                 }

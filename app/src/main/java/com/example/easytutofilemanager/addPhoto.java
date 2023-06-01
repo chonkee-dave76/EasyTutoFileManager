@@ -1,10 +1,16 @@
 package com.example.easytutofilemanager;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.style.ImageSpan;
@@ -22,98 +28,64 @@ import java.util.List;
 
 public class addPhoto extends AppCompatActivity {
 
-    Button nextButton;
-    Button previousButton;
-    Button selectImages;
-    ImageSwitcher imagePreview;
-    String imageEncoded;
-    TextView totalImages;
-    ArrayList<Uri> mainArrayURI;
-    List<String> imagesEncodedList;
-    int PICK_IMAGE_MULTIPLE = 1;
-    int position = 0;
+    RecyclerView recyclerView;
+    TextView textView;
+    Button pickButton;
+
+    ArrayList<Uri> uri = new ArrayList<>();
+    ImageSelecterRecyclerAdapter adapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_photo);
 
-        nextButton.findViewById(R.id.nextButton);
-        previousButton.findViewById(R.id.previousButton);
-        selectImages.findViewById(R.id.selectButton);
-        imagePreview.findViewById(R.id.imagePreview);
-        totalImages.findViewById(R.id.numberOfImages);
-        mainArrayURI = new ArrayList<Uri>();
+        textView = findViewById(R.id.totalPhotos);
+        recyclerView = findViewById(R.id.recycler_view_images);
+        pickButton = findViewById(R.id.pickButton);
 
-        imagePreview.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView imageView1 = new ImageView(getApplicationContext());
-                return imageView1;
-            }
-        });
+        adapter = new ImageSelecterRecyclerAdapter(uri);
+        recyclerView.setLayoutManager(new GridLayoutManager(addPhoto.this, 4));
+        recyclerView.setAdapter(adapter);
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
+        pickButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (position < mainArrayURI.size() - 1) {
-                    position++;
-                    imagePreview.setImageURI(mainArrayURI.get(position));
-                } else {
-                    Toast.makeText(getApplicationContext(), "Last image", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent();
+                intent.setType("image/");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 }
-            }
-        });
-
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (position > 0) {
-                    position--;
-                    imagePreview.setImageURI(mainArrayURI.get(position));
-                }
-            }
-        });
-
-        selectImages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent  intent = new Intent();
-                intent.setType("image/*");
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_MULTIPLE);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture(s)"), 1);
+
             }
         });
-
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // When an Image is picked
-        if (requestCode == PICK_IMAGE_MULTIPLE && resultCode == RESULT_OK && null != data) {
-            // Get the Image from data
+
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if (data.getClipData() != null) {
-                ClipData mClipData = data.getClipData();
-                int cout = data.getClipData().getItemCount();
-                for (int i = 0; i < cout; i++) {
-                    // adding imageuri in array
-                    Uri imageurl = data.getClipData().getItemAt(i).getUri();
-                    mainArrayURI.add(imageurl);
+                int x = data.getClipData().getItemCount();
+
+                for (int i = 0; i < x; i++) {
+                    uri.add(data.getClipData().getItemAt(i).getUri());
                 }
-                // setting 1st selected image into image switcher
-                imagePreview.setImageURI(mainArrayURI.get(0));
-                position = 0;
-            } else {
-                Uri imageurl = data.getData();
-                mainArrayURI.add(imageurl);
-                imagePreview.setImageURI(mainArrayURI.get(0));
-                position = 0;
+                adapter.notifyDataSetChanged();
+                textView.setText("Photos (" + uri.size() + ")");
+
             }
-        } else {
-            // show this if no image is selected
-            Toast.makeText(this, "You haven't picked Image", Toast.LENGTH_LONG).show();
+            else if (data.getData() != null) {
+                String imageURL = data.getData().getPath();
+                uri.add(Uri.parse(imageURL));
+            }
         }
+
     }
 }

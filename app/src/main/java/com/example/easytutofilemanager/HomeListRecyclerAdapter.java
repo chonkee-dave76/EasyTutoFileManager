@@ -2,20 +2,15 @@ package com.example.easytutofilemanager;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.PopupWindow;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,13 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.io.FileUtils;
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
+public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecyclerAdapter.ViewHolder>{
 
     public static File adapterRenameFile;
     Context context;
     File[] filesAndFolders;
     public static String newName;
-    public MyAdapter(Context context, File[] filesAndFolders){
+    public HomeListRecyclerAdapter(Context context, File[] filesAndFolders){
         this.context = context;
         this.filesAndFolders = filesAndFolders;
     }
@@ -44,7 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(MyAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(HomeListRecyclerAdapter.ViewHolder holder, int position) {
 
         File selectedFile = filesAndFolders[position];
         holder.textView.setText(selectedFile.getName());

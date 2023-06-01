@@ -1,23 +1,17 @@
 package com.example.easytutofilemanager;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
-import java.util.Set;
 
 public class HomeListActivity extends AppCompatActivity {
 
@@ -77,7 +71,7 @@ public class HomeListActivity extends AppCompatActivity {
         noFilesText.setVisibility(View.INVISIBLE);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(),filesAndFolders));
+        recyclerView.setAdapter(new HomeListRecyclerAdapter(getApplicationContext(),filesAndFolders));
 
 
     }
