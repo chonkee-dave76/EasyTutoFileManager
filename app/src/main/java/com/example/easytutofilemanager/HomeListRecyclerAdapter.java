@@ -87,7 +87,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
 
                 PopupMenu popupMenu = new PopupMenu(context,v);
                 popupMenu.getMenu().add("DELETE");
-                popupMenu.getMenu().add("SHOW");
+                popupMenu.getMenu().add("TAGS");
                 popupMenu.getMenu().add("RENAME");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
@@ -106,8 +106,15 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                                     Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
                                 }
                             }
+                            else {
+                                selectedFile.delete();
+                                if (!selectedFile.exists()) {
+                                    v.setVisibility(View.GONE);
+                                    Toast.makeText(context.getApplicationContext(), "DELETED", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
-                        if(item.getTitle().equals("SHOW")){
+                        if(item.getTitle().equals("TAGS")){
                             Toast.makeText(context.getApplicationContext(),filesAndFolders.toString(),Toast.LENGTH_LONG).show();
 
                         }

@@ -12,6 +12,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.storage.StorageManager;
+import android.os.storage.StorageVolume;
 import android.provider.ContactsContract;
 import android.text.style.ImageSpan;
 import android.view.View;
@@ -38,12 +41,14 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class addPhoto extends AppCompatActivity {
 
+    public String imageURL;
     RecyclerView recyclerView;
     TextView textView;
     Button pickButton;
-
+    Button doneButton;
     ArrayList<Uri> uri = new ArrayList<>();
     ImageSelecterRecyclerAdapter adapter;
 
@@ -57,10 +62,28 @@ public class addPhoto extends AppCompatActivity {
         textView = findViewById(R.id.totalPhotos);
         recyclerView = findViewById(R.id.recycler_view_images);
         pickButton = findViewById(R.id.pickButton);
+        doneButton = findViewById(R.id.doneButton);
 
         adapter = new ImageSelecterRecyclerAdapter(uri);
         recyclerView.setLayoutManager(new GridLayoutManager(addPhoto.this, 4));
         recyclerView.setAdapter(adapter);
+
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                for (int i = 0; i < uri.size(); i++){
+                    File source = new File(PathUtil.getPath(addPhoto.this, uri.get(i)));
+                    File dest = new File(pathList.paths.get(pathList.paths.size() - 1));
+                    Toast.makeText(addPhoto.this, PathUtil.getPath(addPhoto.this, uri.get(i)) + " " + pathList.paths.get(pathList.paths.size() - 1), Toast.LENGTH_SHORT).show();
+                    try {
+                        copy(source, dest);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                finish();
+            }
+        });
 
         pickButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,9 +96,6 @@ public class addPhoto extends AppCompatActivity {
                 }
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture(s)"), 1);
-                    for (int i = 0; i < uri.size(); i++) {
-                        copyFile(uri.get(i).getPath(), pathList.paths.get(pathList.paths.size() - 1));
-                    }
                 }
         });
     }
@@ -96,38 +116,15 @@ public class addPhoto extends AppCompatActivity {
 
             }
             else if (data.getData() != null) {
-                String imageURL = data.getData().getPath();
+                imageURL = data.getData().getPath();
                 uri.add(Uri.parse(imageURL));
             }
         }
 
     }
 
-    public static void copyFile(String inputPath, String outputPath) {
-
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            in = new FileInputStream(inputPath);
-            out = new FileOutputStream(outputPath);
-
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-            in.close();
-            in = null;
-
-            // write the output file (You have now copied the file)
-            out.flush();
-            out.close();
-            out = null;
-
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+    public void copy(File src, File dst) throws IOException {
+        FileUtils.copyFileToDirectory(src, dst);
     }
 
 
