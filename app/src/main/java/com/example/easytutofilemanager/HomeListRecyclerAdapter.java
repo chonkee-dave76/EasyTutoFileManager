@@ -115,7 +115,8 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                             }
                         }
                         if(item.getTitle().equals("TAGS")){
-                            Toast.makeText(context.getApplicationContext(),filesAndFolders.toString(),Toast.LENGTH_LONG).show();
+                            tagManagement.checkForTags(selectedFile.getAbsolutePath());
+                            Toast.makeText(context.getApplicationContext(),tagManagement.checkForTags(selectedFile.getAbsolutePath()),Toast.LENGTH_LONG).show();
 
                         }
                         if(item.getTitle().equals("RENAME")){
