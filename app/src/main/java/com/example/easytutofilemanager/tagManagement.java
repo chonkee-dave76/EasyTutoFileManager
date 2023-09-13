@@ -4,33 +4,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import com.google.android.material.tabs.TabLayout;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class tagManagement
 {
-    public static final ArrayList<String> fileTagPaths = new ArrayList<>();
-    public static final ArrayList<Integer> fileTagNum = new ArrayList<>();
-    public static final Integer tagsFileCount = 0;
-
-    public static void saveTagsFileCount(Context context, int count) {
-        SharedPreferences pref = context.getSharedPreferences(tagsFileCount, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(PREF_FOLDER_COLOUR_KEY, colour);
-        editor.apply();
-    }
-
-    public static ArrayList<ArrayList> fileWithTagsArray = new ArrayList<>();
+    public static int tagArrayCount = 0;
+    public static ArrayList<String> fileTagPaths = new ArrayList<>(Arrays.asList("BLOCK"));
+    public static ArrayList<Integer> fileTagNum = new ArrayList<>(Arrays.asList(-1));
+    public static ArrayList<ArrayList<String>> fileWithTagsArray = new ArrayList<>(Arrays.asList(new ArrayList<String>()));
 
     public static CharSequence checkForTags (String path) {
-        if (tagManagement.fileWithTagsArray.contains(path)) {
+        if (tagManagement.fileTagPaths.contains(path)) {
             return "true";
         }
         else {
             return "false";
         }
     }
-    public static void createTagArray (ArrayList<String> path) {
-
+    public static void createTagArray (String path) {
+        fileTagPaths.add(path);
+        tagArrayCount++;
+        fileTagNum.add(tagArrayCount);
     }
 }

@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class NewFolderCreation extends AppCompatActivity {
 
+
     String path = pathList.paths.get((pathList.paths.size()) -1);
     String FolderName;
     Button backButton;

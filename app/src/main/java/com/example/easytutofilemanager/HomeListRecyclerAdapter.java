@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,6 +90,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                 popupMenu.getMenu().add("DELETE");
                 popupMenu.getMenu().add("TAGS");
                 popupMenu.getMenu().add("RENAME");
+                popupMenu.getMenu().add("VIEW TAGS");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -115,14 +117,28 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                             }
                         }
                         if(item.getTitle().equals("TAGS")){
-                            tagManagement.checkForTags(selectedFile.getAbsolutePath());
-                            Toast.makeText(context.getApplicationContext(),tagManagement.checkForTags(selectedFile.getAbsolutePath()),Toast.LENGTH_LONG).show();
-
+                            if (selectedFile.isDirectory() == false) {
+                                if (tagManagement.checkForTags(selectedFile.getAbsolutePath()).equals("false")) {
+                                    tagManagement.createTagArray(selectedFile.getAbsolutePath());
+                                    tagManagement.fileWithTagsArray.add(new ArrayList<>());
+                                    Toast.makeText(context.getApplicationContext(), "created", Toast.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Toast.makeText(context.getApplicationContext(), "true " + tagManagement.fileTagNum + " " + tagManagement.fileWithTagsArray, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                            else {
+                                Toast.makeText(context.getApplicationContext(), "CANNOT TAG FOLDERS", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         if(item.getTitle().equals("RENAME")){
                             PopUpClass renamePopup = new PopUpClass();
                             adapterRenameFile = selectedFile;
                             renamePopup.showRenamePopup(v);
+                        }
+                        if (item.getTitle().equals("VIEW TAGS")) {
+                            int index = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
+                            Toast.makeText(context.getApplicationContext(), tagManagement.fileTagNum.get(index) + " " + tagManagement.fileWithTagsArray.get(index), Toast.LENGTH_SHORT).show();
                         }
                         return true;
                     }
