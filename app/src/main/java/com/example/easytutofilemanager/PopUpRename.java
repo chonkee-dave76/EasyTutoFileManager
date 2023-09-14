@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import java.io.File;
 
-public class PopUpClass {
+public class PopUpRename {
     public void showRenamePopup(final View view) {
         LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.rename_popup, null);
@@ -55,4 +55,6 @@ public class PopUpClass {
             }
         });
     }
+
 }
+

@@ -8,14 +8,15 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class tagManagement
 {
     public static int tagArrayCount = 0;
-    public static ArrayList<String> fileTagPaths = new ArrayList<>(Arrays.asList("BLOCK"));
-    public static ArrayList<Integer> fileTagNum = new ArrayList<>(Arrays.asList(-1));
-    public static ArrayList<ArrayList<String>> fileWithTagsArray = new ArrayList<>(Arrays.asList(new ArrayList<String>()));
+    public static ArrayList<String> fileTagPaths = new ArrayList<>(Collections.singletonList("BLOCK"));
+    public static ArrayList<Integer> fileTagNum = new ArrayList<>(Collections.singletonList(-1));
+    public static ArrayList<ArrayList<String>> fileWithTagsArray = new ArrayList<>(Collections.singletonList(new ArrayList<String>()));
 
     public static CharSequence checkForTags (String path) {
         if (tagManagement.fileTagPaths.contains(path)) {
@@ -29,5 +30,6 @@ public class tagManagement
         fileTagPaths.add(path);
         tagArrayCount++;
         fileTagNum.add(tagArrayCount);
+        fileWithTagsArray.add(new ArrayList<>());
     }
 }

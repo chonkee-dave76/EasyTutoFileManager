@@ -21,7 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.apache.commons.io.FileUtils;
 
 public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecyclerAdapter.ViewHolder>{
-
+    public static String[] listArray = tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).toArray(new String[tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).size()]);
+    public static int editTagsIndex;
     public static File adapterRenameFile;
     Context context;
     File[] filesAndFolders;
@@ -35,7 +36,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.recycler_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.recycler_item_main_files,parent,false);
         return new ViewHolder(view);
     }
 
@@ -88,9 +89,9 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
 
                 PopupMenu popupMenu = new PopupMenu(context,v);
                 popupMenu.getMenu().add("DELETE");
-                popupMenu.getMenu().add("TAGS");
                 popupMenu.getMenu().add("RENAME");
-                popupMenu.getMenu().add("VIEW TAGS");
+                popupMenu.getMenu().add("ADD TAGS");
+                popupMenu.getMenu().add("REMOVE TAGS");
 
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -116,29 +117,32 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                                 }
                             }
                         }
-                        if(item.getTitle().equals("TAGS")){
-                            if (selectedFile.isDirectory() == false) {
+                        if(item.getTitle().equals("ADD TAGS")){
+                            if (!selectedFile.isDirectory()) {
                                 if (tagManagement.checkForTags(selectedFile.getAbsolutePath()).equals("false")) {
                                     tagManagement.createTagArray(selectedFile.getAbsolutePath());
-                                    tagManagement.fileWithTagsArray.add(new ArrayList<>());
                                     Toast.makeText(context.getApplicationContext(), "created", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
                                     Toast.makeText(context.getApplicationContext(), "true " + tagManagement.fileTagNum + " " + tagManagement.fileWithTagsArray, Toast.LENGTH_SHORT).show();
                                 }
+                                editTagsIndex = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
+                                Toast.makeText(context.getApplicationContext(), tagManagement.fileTagNum.get(editTagsIndex) + " " + tagManagement.fileWithTagsArray.get(editTagsIndex), Toast.LENGTH_SHORT).show();
+                                PopupEditTags editTagsPopup = new PopupEditTags();
+                                editTagsPopup.showEditTagsPopup(v);
                             }
                             else {
                                 Toast.makeText(context.getApplicationContext(), "CANNOT TAG FOLDERS", Toast.LENGTH_SHORT).show();
                             }
+
                         }
                         if(item.getTitle().equals("RENAME")){
-                            PopUpClass renamePopup = new PopUpClass();
+                            PopUpRename renamePopup = new PopUpRename();
                             adapterRenameFile = selectedFile;
                             renamePopup.showRenamePopup(v);
                         }
-                        if (item.getTitle().equals("VIEW TAGS")) {
-                            int index = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
-                            Toast.makeText(context.getApplicationContext(), tagManagement.fileTagNum.get(index) + " " + tagManagement.fileWithTagsArray.get(index), Toast.LENGTH_SHORT).show();
+                        if(item.getTitle().equals("REMOVE TAGS")) {
+
                         }
                         return true;
                     }

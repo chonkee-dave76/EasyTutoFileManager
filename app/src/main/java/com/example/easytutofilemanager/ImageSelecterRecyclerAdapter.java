@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ImageSelecterRecyclerAdapter extends RecyclerView.Adapter<ImageSelecterRecyclerAdapter.ViewHolder> {
 
-    private ArrayList<Uri> uriArrayList;
+    private final ArrayList<Uri> uriArrayList;
 
     public ImageSelecterRecyclerAdapter(ArrayList<Uri> uriArrayList) {
         this.uriArrayList = uriArrayList;
