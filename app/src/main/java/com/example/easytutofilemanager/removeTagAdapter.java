@@ -36,12 +36,13 @@ public class removeTagAdapter extends ArrayAdapter<removeTagCustomItem> {
 
         Button removeButton = currentItemView.findViewById(R.id.removeTagButton);
 
+        View finalCurrentItemView = currentItemView;
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "test test", Toast.LENGTH_SHORT).show();
                 int tempIndex = tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).indexOf(currentNumberPosition.getmTagName());
                 tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).remove(tempIndex);
+                finalCurrentItemView.setVisibility(View.GONE);
             }
         });
 
