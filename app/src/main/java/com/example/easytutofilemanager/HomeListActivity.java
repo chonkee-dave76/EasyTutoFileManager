@@ -30,7 +30,7 @@ public class HomeListActivity extends AppCompatActivity {
         selectPhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent toAddPhoto = new Intent(HomeListActivity.this, addPhoto.class);
+                Intent toAddPhoto = new Intent(HomeListActivity.this, AddPhoto.class);
                 startActivity(toAddPhoto);
             }
         });

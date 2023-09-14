@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -119,6 +118,8 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                         }
                         if(item.getTitle().equals("ADD TAGS")){
                             if (!selectedFile.isDirectory()) {
+                                editTagsIndex = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
+
                                 if (tagManagement.checkForTags(selectedFile.getAbsolutePath()).equals("false")) {
                                     tagManagement.createTagArray(selectedFile.getAbsolutePath());
                                     Toast.makeText(context.getApplicationContext(), "created", Toast.LENGTH_SHORT).show();
@@ -142,7 +143,16 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                             renamePopup.showRenamePopup(v);
                         }
                         if(item.getTitle().equals("REMOVE TAGS")) {
-
+                            editTagsIndex = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
+                            if (editTagsIndex == -1) {
+                                Toast.makeText(context.getApplicationContext(), "ADD TAGS FIRST", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Intent toRemoveTags = new Intent(context, RemoveTagsActivity.class);
+                                toRemoveTags.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                toRemoveTags.putExtra("selectedFilePath", selectedFile.getAbsolutePath());
+                                context.startActivity(toRemoveTags);
+                            }
                         }
                         return true;
                     }

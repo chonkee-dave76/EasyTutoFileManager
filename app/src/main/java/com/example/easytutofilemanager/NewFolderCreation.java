@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.graphics.Color;
 
+import com.example.easytutofilemanager.R;
+import com.example.easytutofilemanager.pathList;
+
 import top.defaults.colorpicker.ColorPickerPopup;
 
 import java.io.File;

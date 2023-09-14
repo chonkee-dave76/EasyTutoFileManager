@@ -1,15 +1,7 @@
 package com.example.easytutofilemanager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-
-import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 public class tagManagement
 {

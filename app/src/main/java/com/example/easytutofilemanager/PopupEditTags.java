@@ -1,15 +1,11 @@
 package com.example.easytutofilemanager;
 
-import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListPopupWindow;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -26,7 +22,6 @@ public class PopupEditTags {
         EditText renameEditText = popupView.findViewById(R.id.editTagEditText);
         Button confirmButton = popupView.findViewById(R.id.editTagConfirmButton);
         Button cancelButton = popupView.findViewById(R.id.editTagCancelButton);
-        Button removeTagButton = popupView.findViewById(R.id.removeTagsButton);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
