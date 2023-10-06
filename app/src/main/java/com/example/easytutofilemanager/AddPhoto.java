@@ -54,7 +54,6 @@ public class AddPhoto extends AppCompatActivity {
                 for (int i = 0; i < uri.size(); i++){
                     File source = new File(PathUtil.getPath(AddPhoto.this, uri.get(i)));
                     File dest = new File(pathList.paths.get(pathList.paths.size() - 1));
-                    Toast.makeText(AddPhoto.this, PathUtil.getPath(AddPhoto.this, uri.get(i)) + " " + pathList.paths.get(pathList.paths.size() - 1), Toast.LENGTH_SHORT).show();
                     try {
                         copy(source, dest);
                     } catch (IOException e) {
