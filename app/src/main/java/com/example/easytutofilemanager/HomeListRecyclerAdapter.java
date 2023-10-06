@@ -2,6 +2,7 @@ package com.example.easytutofilemanager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,21 +15,26 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.apache.commons.io.FileUtils;
 
 public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecyclerAdapter.ViewHolder>{
-    public static String[] listArray = tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).toArray(new String[tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).size()]);
     public static int editTagsIndex;
     public static File adapterRenameFile;
     Context context;
-    File[] filesAndFolders;
+    public static List<File> filesAndFolders;
     public static String newName;
-    public HomeListRecyclerAdapter(Context context, File[] filesAndFolders){
+    public HomeListRecyclerAdapter(Context context, List<File> filesAndFolders){
         this.context = context;
         this.filesAndFolders = filesAndFolders;
+    }
+
+    public void setFilteredList(List<File> fileList) {
+        this.filesAndFolders = fileList;
+        notifyDataSetChanged();
     }
 
 
@@ -42,7 +48,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
     @Override
     public void onBindViewHolder(HomeListRecyclerAdapter.ViewHolder holder, int position) {
 
-        File selectedFile = filesAndFolders[position];
+        File selectedFile = filesAndFolders.get(position);
         holder.textView.setText(selectedFile.getName());
 
         if(selectedFile.isDirectory()){
@@ -118,10 +124,12 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                         }
                         if(item.getTitle().equals("ADD TAGS")){
                             if (!selectedFile.isDirectory()) {
-                                editTagsIndex = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
 
                                 if (tagManagement.checkForTags(selectedFile.getAbsolutePath()).equals("false")) {
-                                    tagManagement.createTagArray(selectedFile.getAbsolutePath());
+                                    tagManagement.createTagArray(selectedFile.getAbsolutePath(), position);
+                                    SharedPref.saveArrayList(context, tagManagement.fileWithTagsArray);
+                                    SharedPref.writeNumListInPref(context, tagManagement.fileTagNum);
+                                    SharedPref.writePathListInPref(context, tagManagement.fileTagPaths);
                                     Toast.makeText(context.getApplicationContext(), "created", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
@@ -131,6 +139,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                                 Toast.makeText(context.getApplicationContext(), tagManagement.fileTagNum.get(editTagsIndex) + " " + tagManagement.fileWithTagsArray.get(editTagsIndex), Toast.LENGTH_SHORT).show();
                                 PopupEditTags editTagsPopup = new PopupEditTags();
                                 editTagsPopup.showEditTagsPopup(v);
+
                             }
                             else {
                                 Toast.makeText(context.getApplicationContext(), "CANNOT TAG FOLDERS", Toast.LENGTH_SHORT).show();
@@ -143,6 +152,9 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
                             renamePopup.showRenamePopup(v);
                         }
                         if(item.getTitle().equals("REMOVE TAGS")) {
+                            tagManagement.fileWithTagsArray = SharedPref.loadArrayList(context);
+                            tagManagement.fileTagPaths = SharedPref.readPathListFromPref(context);
+                            tagManagement.fileTagNum = SharedPref.readNumListFromPref(context);
                             editTagsIndex = tagManagement.fileTagPaths.indexOf(selectedFile.getAbsolutePath());
                             if (editTagsIndex == -1) {
                                 Toast.makeText(context.getApplicationContext(), "ADD TAGS FIRST", Toast.LENGTH_SHORT).show();
@@ -168,7 +180,7 @@ public class HomeListRecyclerAdapter extends RecyclerView.Adapter<HomeListRecycl
 
     @Override
     public int getItemCount() {
-        return filesAndFolders.length;
+        return filesAndFolders.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

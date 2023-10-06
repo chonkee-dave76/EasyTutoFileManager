@@ -37,6 +37,19 @@
         android:text="ADD PHOTO"
         android:textStyle="bold" />
 
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/settingButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_toLeftOf="@id/settingButton"
+        android:queryHint="Search by tags ..."
+        android:iconifiedByDefault="false"/>
+
     <Button
         android:id="@+id/settingButton"
         android:layout_width="wrap_content"
@@ -53,7 +66,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-1dp" />
 
     <ImageButton
         android:id="@+id/refreshButton"
@@ -64,6 +80,19 @@
         android:layout_marginBottom="10dp"
         android:background="@drawable/refresh_button"
         android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_popup_sync" />
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_above="@id/addPhotoButton"
+        android:layout_alignRight="@id/createNewFolder"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="93dp"
+        android:scaleType="fitCenter"
+        android:text="test"
         android:src="@android:drawable/ic_popup_sync" />
 
 </RelativeLayout>

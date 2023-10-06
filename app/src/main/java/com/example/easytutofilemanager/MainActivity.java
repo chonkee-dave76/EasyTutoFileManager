@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(checkPermission()){
                     //permission allowed
+
                     Intent intent = new Intent(MainActivity.this, HomeListActivity.class);
                     String path = Environment.getExternalStorageDirectory().getPath() + "/GetOrganised/";
                     pathList.paths.add(path);

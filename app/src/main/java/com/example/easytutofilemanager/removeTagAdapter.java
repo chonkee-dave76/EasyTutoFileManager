@@ -1,6 +1,7 @@
 package com.example.easytutofilemanager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class removeTagAdapter extends ArrayAdapter<removeTagCustomItem> {
+
     public removeTagAdapter(@NonNull Context context, ArrayList<removeTagCustomItem> arrayList) {
 
         super(context, 0, arrayList);
@@ -43,6 +45,7 @@ public class removeTagAdapter extends ArrayAdapter<removeTagCustomItem> {
                 int tempIndex = tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).indexOf(currentNumberPosition.getmTagName());
                 tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).remove(tempIndex);
                 finalCurrentItemView.setVisibility(View.GONE);
+                SharedPref.saveArrayList(getContext() ,tagManagement.fileWithTagsArray);
             }
         });
 

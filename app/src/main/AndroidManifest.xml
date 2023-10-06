@@ -17,7 +17,7 @@
         <activity android:name=".Settings" />
         <activity android:name=".NewFolderCreation" />
         <activity android:name=".HomeListActivity" />
-        <activity android:name=".RemoveTagsActivity"/>
+        <activity android:name=".RemoveTagsActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

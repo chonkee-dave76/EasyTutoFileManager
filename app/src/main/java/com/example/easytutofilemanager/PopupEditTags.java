@@ -31,6 +31,7 @@ public class PopupEditTags {
                     Toast.makeText(popupView.getContext(), "DUPLICATE TAG", Toast.LENGTH_SHORT).show();
                 } else {
                     tagManagement.fileWithTagsArray.get(HomeListRecyclerAdapter.editTagsIndex).add(String.valueOf(renameEditText.getText()));
+                    SharedPref.saveArrayList(confirmButton.getContext(), tagManagement.fileWithTagsArray);
                 }
             }
         });
